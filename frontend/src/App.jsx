@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import datadogRum from "./datadog";
 
 export default function App() {
@@ -8,7 +8,7 @@ export default function App() {
   const send = async () => {
     datadogRum.addAction("send_message", { message });
 
-    const res = await fetch("http://backend:8000/message", {
+    const res = await fetch(`http://localhost:8000/message`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ message }),

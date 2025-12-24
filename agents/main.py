@@ -25,7 +25,7 @@ logger = logging.getLogger(__name__)
 
 def classify(state: AgentState):
     msg = state["message"].lower()
-    logger.info("Agent classifying message", extra={"message": msg})
+    logger.info("Agent classifying message", extra={"user_message": msg})
 
     if msg in {"hi", "hello", "hey"}:
         return {"route": "greeting"}

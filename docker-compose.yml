@@ -1,11 +1,11 @@
-version: "3.9"
-
 services:
   frontend:
     build: ./frontend
     environment:
       - REACT_APP_DD_APP_ID=${DD_RUM_APP_ID}
       - REACT_APP_DD_CLIENT_TOKEN=${DD_RUM_CLIENT_TOKEN}
+      - DD_ENV=local
+      - DD_SERVICE=frontend
     ports:
       - "3000:80"
 
@@ -15,25 +15,27 @@ services:
       - DD_SERVICE=backend
       - DD_ENV=local
       - DD_VERSION=1.0.0
-      - DD_AGENT_HOST=host.docker.internal:8126
+      - DD_AGENT_HOST=host.docker.internal
+    ports:
+      - "8000:8000"
 
   agent:
-    build: ./agent
+    build: ./agents
     environment:
       - DD_ENV=local
-      - DD_SERVICE=agent
-      - DD_AGENT_HOST=host.docker.internal:8126
+      - DD_SERVICE=agents
+      - DD_AGENT_HOST=host.docker.internal
 
   registry:
     build: ./registry
     environment:
       - DD_ENV=local
       - DD_SERVICE=registry
-      - DD_AGENT_HOST=host.docker.internal:8126
+      - DD_AGENT_HOST=host.docker.internal
 
   mcp:
     build: ./mcp
     environment:
       - DD_ENV=local
       - DD_SERVICE=mcp-server
-      - DD_AGENT_HOST=host.docker.internal:8126
+      - DD_AGENT_HOST=host.docker.internal
