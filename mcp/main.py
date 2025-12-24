@@ -23,4 +23,5 @@ def weather(payload: dict):
 
 @app.post("/stocks")
 def stocks(payload: dict):
+    logger.info("MCP stocks called")
     return {"symbol": "AAPL", "price": 189.32}

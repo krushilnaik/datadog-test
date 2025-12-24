@@ -20,12 +20,12 @@ USE_CASES = [
     {
         "name": "Weather Lookup",
         "description": "Fetch weather information",
-        "mcp_url": "http://localhost:8003/weather",
+        "mcp_url": "http://mcp:8000/weather",
     },
     {
         "name": "Stock Prices",
         "description": "Get stock price data",
-        "mcp_url": "http://localhost:8003/stocks",
+        "mcp_url": "http://mcp:8000/stocks",
     },
 ]
 
