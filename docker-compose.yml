@@ -1,6 +1,14 @@
 version: "3.9"
 
 services:
+  frontend:
+    build: ./frontend
+    environment:
+      - REACT_APP_DD_APP_ID=${DD_RUM_APP_ID}
+      - REACT_APP_DD_CLIENT_TOKEN=${DD_RUM_CLIENT_TOKEN}
+    ports:
+      - "3000:80"
+
   backend:
     build: ./backend
     environment:

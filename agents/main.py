@@ -3,9 +3,12 @@ from typing import TypedDict
 
 import requests
 from ddtrace import patch_all
+from fastapi import FastAPI
 from langgraph.graph import END, StateGraph
 
 patch_all(logging=True)
+
+app = FastAPI()
 
 
 class AgentState(TypedDict):
@@ -62,3 +65,9 @@ builder.add_edge("intent", END)
 builder.set_entry_point("classify")
 
 graph = builder.compile()
+
+
+@app.post("/agent")
+def agent(payload: dict):
+    logger.info("Agent received request")
+    return graph.invoke({"message": payload["message"]})
