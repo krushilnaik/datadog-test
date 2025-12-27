@@ -20,6 +20,8 @@ class DatadogHTTPHandler(logging.Handler):
         self.session = requests.Session()
         self.lock = threading.Lock()
 
+        print("Logger initialized, sending to %s", self.url)
+
     def emit(self, record):
         try:
             payload = {
@@ -36,18 +38,19 @@ class DatadogHTTPHandler(logging.Handler):
                 "DD-API-KEY": self.api_key,
             }
 
-            with self.lock:
-                self.session.post(
-                    self.url,
-                    headers=headers,
-                    data=json.dumps(payload),
-                    timeout=2,
-                )
+            if self.lock:
+                with self.lock:
+                    self.session.post(
+                        self.url,
+                        headers=headers,
+                        data=json.dumps(payload),
+                        timeout=2,
+                    )
         except Exception:
             self.handleError(record)
 
 
-dd_handler = DatadogHTTPHandler()
+# dd_handler = DatadogHTTPHandler()
 
-formatter = logging.Formatter("%(asctime)s %(levelname)s %(name)s %(message)s")
-dd_handler.setFormatter(formatter)
+# formatter = logging.Formatter("%(asctime)s %(levelname)s %(name)s %(message)s")
+# dd_handler.setFormatter(formatter)

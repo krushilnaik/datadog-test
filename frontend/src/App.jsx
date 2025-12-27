@@ -2,7 +2,7 @@ import { useState } from "react";
 import datadogRum from "./datadog";
 
 export default function App() {
-  const [message, setMessage] = useState("");
+  const [message, setMessage] = useState("weather");
   const [response, setResponse] = useState("");
 
   const send = async () => {

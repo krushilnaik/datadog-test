@@ -1220,6 +1220,14 @@
   dependencies:
     "@datadog/browser-core" "6.25.1"
 
+"@datadog/browser-rum-react@^6.25.1":
+  version "6.25.1"
+  resolved "https://registry.yarnpkg.com/@datadog/browser-rum-react/-/browser-rum-react-6.25.1.tgz#6cf0b04b4bc0c0fc03e9deb39ac0d9da765a7ffe"
+  integrity sha512-WCNw9b+TZ3X9lc8cKbExFXKMrKOBU8DS2Z6KnazpXXx+5EU50OheVSFkkmcHmqwj2LBX1Wt7MZJyXOgIvm5i7Q==
+  dependencies:
+    "@datadog/browser-core" "6.25.1"
+    "@datadog/browser-rum-core" "6.25.1"
+
 "@datadog/browser-rum@^6.25.1":
   version "6.25.1"
   resolved "https://registry.yarnpkg.com/@datadog/browser-rum/-/browser-rum-6.25.1.tgz#5c63dd3788901510c5f944d4039630582c6ef3a7"

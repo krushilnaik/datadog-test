@@ -1,8 +1,7 @@
 import logging
 
 import requests
-
-# from datadog_service import dd_handler
+from datadog_service import DatadogHTTPHandler
 from ddtrace import patch_all
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
@@ -15,8 +14,10 @@ logging.basicConfig(
     format="%(asctime)s %(levelname)s [trace_id=%(dd.trace_id)s span_id=%(dd.span_id)s] %(message)s",
 )
 
+dd_handler = DatadogHTTPHandler()
+
 logger = logging.getLogger(__name__)
-# logger.addHandler(dd_handler)
+logger.addHandler(dd_handler)
 
 app = FastAPI()
 
