@@ -1,10 +1,11 @@
+import logging
+
 import requests
 from ddtrace import patch_all
 from fastapi import FastAPI
 
 patch_all(logging=True)
 
-import logging
 
 logging.basicConfig(
     level=logging.INFO,
