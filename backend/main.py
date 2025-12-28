@@ -1,23 +1,7 @@
-import logging
-
 import requests
-from datadog_service import DatadogHTTPHandler
-from ddtrace import patch_all
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-
-patch_all(logging=True)
-
-
-logging.basicConfig(
-    level=logging.INFO,
-    format="%(asctime)s %(levelname)s [trace_id=%(dd.trace_id)s span_id=%(dd.span_id)s] %(message)s",
-)
-
-dd_handler = DatadogHTTPHandler()
-
-logger = logging.getLogger(__name__)
-logger.addHandler(dd_handler)
+from logger.logger import logger
 
 app = FastAPI()
 
@@ -28,6 +12,11 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+logger.info("Backend service started")
+logger.error("This is a test error log from backend")
+logger.warning("This is a test warning log from backend")
+logger.debug("This is a test debug log from backend")
 
 
 @app.post("/message")

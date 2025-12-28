@@ -1,26 +1,15 @@
-import logging
 from typing import TypedDict
 
 import requests
-from ddtrace import patch_all
 from fastapi import FastAPI
 from langgraph.graph import END, StateGraph
-
-patch_all(logging=True)
+from logger.logger import logger
 
 app = FastAPI()
 
 
 class AgentState(TypedDict):
     message: str
-
-
-logging.basicConfig(
-    level=logging.INFO,
-    format="%(asctime)s %(levelname)s [trace_id=%(dd.trace_id)s span_id=%(dd.span_id)s] %(message)s",
-)
-
-logger = logging.getLogger(__name__)
 
 
 def classify(state: AgentState):
