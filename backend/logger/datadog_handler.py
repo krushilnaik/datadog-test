@@ -14,16 +14,16 @@ class DatadogHandler(logging.Handler):
         super().__init__()
         self.api_key = os.getenv("DD_API_KEY", "")
         self.service_name = os.getenv("DD_SERVICE", "")
-        self.url = "https://http-intake.logs.datadoghq.com/v1/input"
-        self.batch_size = 5
-        self.flush_interval = 1
+        self.url = os.getenv("DD_LOGS_URL", "https://http-intake.logs.datadoghq.com/v1/input")
+        self.batch_size = int(os.getenv("DD_BATCH_SIZE", 5))
+        self.flush_interval = int(os.getenv("DD_FLUSH_INTERVAL_SECONDS", 1))
 
         self.queue = Queue()
         self.stop_event = Event()
         self.worker_thread = Thread(target=self._worker, daemon=True)
         self.worker_thread.start()
 
-    def emit(self, record):  # type: ignore
+    def emit(self, record: logging.LogRecord):
         # get the current tracing context
         span = tracer.current_span()
 
@@ -111,7 +111,7 @@ class DatadogHandler(logging.Handler):
                     batch = []
                     last_flush = time.time()
 
-    def _flush_batch(self, batch):  # type: ignore
+    def _flush_batch(self, batch: list[logging.LogRecord]):
         if not batch:
             return
 
